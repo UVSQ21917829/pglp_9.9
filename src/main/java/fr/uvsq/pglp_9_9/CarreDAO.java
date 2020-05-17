@@ -31,7 +31,7 @@ public class CarreDAO extends DAO<Carre> {
 	public Carre read(String nom) throws ClassNotFoundException, IOException {
 		Carre carre = null;
 		this.createConnection();
-		try (PreparedStatement carrPr = this.connection.prepareStatement("SELECT * FROM carre R WHERE nom = ?")) {
+		try (PreparedStatement carrPr = this.connection.prepareStatement("SELECT * FROM carre WHERE nom = ?")) {
 			carrPr.setString(1, nom);
 			try (ResultSet res = carrPr.executeQuery()) {
 				if (res.next()) {
@@ -55,11 +55,12 @@ public class CarreDAO extends DAO<Carre> {
 		Carre carre = null;
 		this.createConnection();
 		try (PreparedStatement udateStatemnt = this.connection
-				.prepareStatement("UPDATE PERSONNEL SET fonction=? WHERE id=?");) {
+				.prepareStatement("UPDATE carre SET x=?, y=?, cote=? WHERE nom=?");) {
 
 			udateStatemnt.setInt(1, obj.getCentreGravite().getX());
 			udateStatemnt.setInt(2, obj.getCentreGravite().getY());
 			udateStatemnt.setInt(3, obj.getCote());
+			udateStatemnt.setString(3, obj.getNom());
 			udateStatemnt.executeUpdate();
 			carre = this.read(obj.getNom());
 		} catch (SQLException e) {
