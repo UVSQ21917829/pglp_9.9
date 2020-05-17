@@ -10,6 +10,16 @@ public class Groupe extends Form{
 		this.forms=forms;
 	}
 
+	public ArrayList<Form> getForms() {
+		return forms;
+	}
+
+	public void setForms(ArrayList<Form> forms) {
+		this.forms = forms;
+	}
+	public void addForm(Form form) {
+		this.forms.add(form);
+	}
 	@Override
 	public void afficher() {
 		for(Form form: forms) {
