@@ -2,9 +2,11 @@ package fr.uvsq.pglp_9_9;
 
 public class Cercle extends Form{
     private Point2D centre;
-	public Cercle(String nom,Point2D centre) {
+    private int rayon;
+	public Cercle(String nom,Point2D centre,int rayon) {
 		super(nom);
 		this.setCentre(centre);
+		this.setRayon(rayon);
 	}
 
 	public Point2D getCentre() {
@@ -13,6 +15,14 @@ public class Cercle extends Form{
 
 	public void setCentre(Point2D centre) {
 		this.centre = centre;
+	}
+
+	public int getRayon() {
+		return rayon;
+	}
+
+	public void setRayon(int rayon) {
+		this.rayon = rayon;
 	}
 
 	@Override
