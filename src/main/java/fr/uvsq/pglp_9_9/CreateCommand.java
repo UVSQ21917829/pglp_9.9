@@ -1,6 +1,6 @@
 package fr.uvsq.pglp_9_9;
 
-import java.io.IOException;
+
 
 public class CreateCommand implements Command {
 
@@ -33,47 +33,60 @@ public class CreateCommand implements Command {
 
 	@Override
 	public void execute() {
-		if (forme instanceof Carre) {
-			try {
-				dao.getCarreDAO().create((Carre) forme);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		if (!this.exist(this.forme)) {
+			dessin.addForm(forme);
+			/*if (forme instanceof Carre) {
+				try {
+					dao.getCarreDAO().create((Carre) forme);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 
-		} else if (forme instanceof Cercle) {
-			try {
-				dao.getCercleDAO().create((Cercle) forme);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			} else if (forme instanceof Cercle) {
+				try {
+					dao.getCercleDAO().create((Cercle) forme);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 
-		} else if (forme instanceof Rectangle) {
-			try {
-				dao.getRectangleDAO().create((Rectangle) forme);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			} else if (forme instanceof Rectangle) {
+				try {
+					dao.getRectangleDAO().create((Rectangle) forme);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 
-		} else if (forme instanceof Triangle) {
-			try {
-				dao.getTriangleDAO().create((Triangle) forme);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			} else if (forme instanceof Triangle) {
+				try {
+					dao.getTriangleDAO().create((Triangle) forme);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 
-		} else if (forme instanceof Groupe) {
-			try {
-				dao.getGroupeDAO().create((Groupe) forme);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			} else if (forme instanceof Groupe) {
+				try {
+					dao.getGroupeDAO().create((Groupe) forme);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}*/
+		}
+
+	}
+
+	public boolean exist(Form forme2) {
+		for (Form form : dessin.getForms()) {
+			if (form.getNom().equals(forme2.getNom())) {
+				return true;
 			}
 		}
 
+		return false;
 	}
 
 }
