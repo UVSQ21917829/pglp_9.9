@@ -22,7 +22,7 @@ public class DaplacerCommand implements Command{
 	@Override
 	public void execute() {
 		forme.decaler(x, y);
-		if (forme instanceof Carre) {
+		/*if (forme instanceof Carre) {
 			try {
 				dao.getCarreDAO().update((Carre) forme);
 			} catch (ClassNotFoundException e) {
@@ -76,7 +76,7 @@ public class DaplacerCommand implements Command{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}		
+		}	*/	
 		
 	}
 }
