@@ -1,27 +1,30 @@
 package fr.uvsq.pglp_9_9;
 
-public class Carre extends Form{
+public class Carre extends Form {
 
 	private Point2D centreGravite;
 	private int cote;
-	
+
 	@Override
 	public void afficher() {
-		// TODO Auto-generated method stub
-		
+		System.out.println(this.getNom() + "= Carre((" + this.getCentreGravite().getX() + ","
+				+ this.getCentreGravite().getY() + ")," + this.getCote() + ")");
+
 	}
 
 	@Override
-	public void deplacer(int x,int y) {
+	public void deplacer(int x, int y) {
 		centreGravite.deplaccer(x, y);
-		
+
 	}
+
 	@Override
 	public void decaler(int x, int y) {
 		this.centreGravite.decaler(x, y);
-		
+
 	}
-	public Carre(String nom,Point2D centreGravite, int cote) {
+
+	public Carre(String nom, Point2D centreGravite, int cote) {
 		super(nom);
 		this.centreGravite = centreGravite;
 		this.cote = cote;

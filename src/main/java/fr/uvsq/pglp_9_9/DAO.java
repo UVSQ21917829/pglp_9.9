@@ -10,7 +10,7 @@ public  abstract class DAO <T>{
 	
 	//crud
 	protected Connection connection=null;
-	String databaseURL = "jdbc:derby:dessin;create=true";
+	String databaseURL = "jdbc:derby:db;create=true";
 	protected  Statement statement = null;
 	public abstract T create(T obj) throws IOException;
     public abstract T read(String id) throws ClassNotFoundException, IOException;
@@ -40,6 +40,7 @@ public  abstract class DAO <T>{
                 if(statement!=null) {
                 	statement.close();
                 }
+                if(connection!=null)
                 connection.close();
                      
         }

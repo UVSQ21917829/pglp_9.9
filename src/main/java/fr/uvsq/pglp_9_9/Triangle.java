@@ -1,9 +1,10 @@
 package fr.uvsq.pglp_9_9;
 
-public class Triangle extends Form{
-    private Point2D point1;
-    private Point2D point2;
-    private Point2D point3;
+public class Triangle extends Form {
+	private Point2D point1;
+	private Point2D point2;
+	private Point2D point3;
+
 	public Point2D getPoint1() {
 		return point1;
 	}
@@ -28,7 +29,7 @@ public class Triangle extends Form{
 		this.point3 = point3;
 	}
 
-	public Triangle(String nom,Point2D point1,Point2D point2,Point2D point3) {
+	public Triangle(String nom, Point2D point1, Point2D point2, Point2D point3) {
 		super(nom);
 		this.point1 = point1;
 		this.point2 = point2;
@@ -37,8 +38,10 @@ public class Triangle extends Form{
 
 	@Override
 	public void afficher() {
-		// TODO Auto-generated method stub
-		
+		System.out.println(this.getNom() + "= Triangle((" + this.getPoint1().getX() + "," + this.getPoint1().getY()
+				+ ")," + "(" + this.getPoint2().getX() + "," + this.getPoint2().getY() + ")," + "("
+				+ this.getPoint3().getX() + "," + this.getPoint3().getY() + ")");
+
 	}
 
 	@Override
@@ -46,16 +49,15 @@ public class Triangle extends Form{
 		this.point1.deplaccer(x, y);
 		this.point2.deplaccer(x, y);
 		this.point3.deplaccer(x, y);
-		
+
 	}
+
 	@Override
 	public void decaler(int x, int y) {
 		this.point1.decaler(x, y);
 		this.point2.decaler(x, y);
 		this.point3.decaler(x, y);
-		
-		
+
 	}
 
-	
 }

@@ -38,7 +38,7 @@ public class Rectangle extends Form{
 
 	@Override
 	public void afficher() {
-		System.out.println("Rectangle nom: "+ this.getNom() + "centre gravitie"+this.centreGravite+"largeur : " +this.largeur+ "longueur : "+ this.longueur);
+		System.out.println("\nRectangle(centre gravitie= ("+this.centreGravite.getX()+","+this.centreGravite.getY()+"largeur = " +this.largeur+ ",longueur : "+ this.longueur+")");
 		
 	}
 

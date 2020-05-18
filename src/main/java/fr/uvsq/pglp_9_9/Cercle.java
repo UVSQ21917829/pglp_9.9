@@ -27,7 +27,7 @@ public class Cercle extends Form{
 
 	@Override
 	public void afficher() {
-		// TODO Auto-generated method stub
+		System.out.println(this.getNom() +"= Cercle(("+getCentre().getX()+"," +getCentre().getY()+")," +getRayon()+")");
 		
 	}
 
