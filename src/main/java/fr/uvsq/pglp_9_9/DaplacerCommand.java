@@ -1,16 +1,13 @@
 package fr.uvsq.pglp_9_9;
 
-import java.io.IOException;
 
 public class DaplacerCommand implements Command{
 	private int x,y;
 	private Form forme;
-	private FactoryDAO dao;
 	public DaplacerCommand(int x,int y,Form forme) {
 		this.x=x;
 		this.y=y;
 		this.setForme(forme);
-		dao= new FactoryDAO();
 	}
 	public Form getForme() {
 		return forme;
