@@ -6,13 +6,11 @@ public class CreateCommand implements Command {
 
 	private Form forme;
 	private Groupe dessin;
-	private FactoryDAO dao;
 
 	public CreateCommand(Form forme, Groupe dessin) {
 
 		this.setForme(forme);
 		this.setDessin(dessin);
-		dao = new FactoryDAO();
 	}
 
 	public Form getForme() {
@@ -39,7 +37,6 @@ public class CreateCommand implements Command {
 				try {
 					dao.getCarreDAO().create((Carre) forme);
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 
@@ -47,7 +44,6 @@ public class CreateCommand implements Command {
 				try {
 					dao.getCercleDAO().create((Cercle) forme);
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 
@@ -55,7 +51,7 @@ public class CreateCommand implements Command {
 				try {
 					dao.getRectangleDAO().create((Rectangle) forme);
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
+					
 					e.printStackTrace();
 				}
 
@@ -63,7 +59,6 @@ public class CreateCommand implements Command {
 				try {
 					dao.getTriangleDAO().create((Triangle) forme);
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 
@@ -71,7 +66,6 @@ public class CreateCommand implements Command {
 				try {
 					dao.getGroupeDAO().create((Groupe) forme);
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}*/
