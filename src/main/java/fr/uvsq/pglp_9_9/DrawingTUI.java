@@ -162,7 +162,7 @@ public class DrawingTUI {
 				command = new QuitCommand();
 
 			}
-		} catch (Exception   e) {
+		} catch (RuntimeException   e) {
 			// TODO: handle exception
 		}
 		return command;
