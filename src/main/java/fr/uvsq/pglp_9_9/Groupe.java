@@ -10,7 +10,13 @@ public class Groupe extends Form{
 		this.forms=forms;
 	}
 
+	public Groupe(String nom) {
+		super(nom);
+		this.forms=new ArrayList<Form>();
+	}
+
 	public ArrayList<Form> getForms() {
+		
 		return forms;
 	}
 

@@ -12,6 +12,8 @@ public class GroupeDAO extends DAO<Groupe> {
 	@Override
 	public Groupe create(Groupe groupe) throws IOException {
 		List<Form> formesList = groupe.getForms();
+		FactoryDAO dao = new FactoryDAO();
+
 		this.createConnection();
 		try (PreparedStatement statementGroupe = this.connection.prepareStatement("INSERT INTO groupe(nom) values(?)");
 				PreparedStatement statementCarre = this.connection
@@ -25,44 +27,47 @@ public class GroupeDAO extends DAO<Groupe> {
 				PreparedStatement statementRectangle = this.connection
 						.prepareStatement("INSERT INTO estRectangle(gr_nom, nom) VALUES(?, ?)")) {
 			// on commence par insertion du groupe
-			statementGroupe.setString(1, groupe.getNom());
-			statementGroupe.executeUpdate();
-			for (Form form : formesList) {
+			if (dao.getGroupeDAO().read(groupe.getNom()) != null)
+				dao.getGroupeDAO().update((Groupe) groupe);
+			else {
+				statementGroupe.setString(1, groupe.getNom());
+				statementGroupe.executeUpdate();
+				for (Form form : formesList) {
 
-				if (form instanceof Carre) {
-					DAO<Carre> dao = new CarreDAO();
-					dao.create((Carre) form);
-					statementCarre.setString(1, groupe.getNom());
-					statementCarre.setString(2, form.getNom());
-					statementCarre.executeUpdate();
-				} else if (form instanceof Cercle) {
-					DAO<Cercle> dao = new CercleDAO();
-					dao.create((Cercle) form);
-					statamentCercle.setString(1, groupe.getNom());
-					statamentCercle.setString(2, form.getNom());
-					statamentCercle.executeUpdate();
-				} else if (form instanceof Rectangle) {
-					DAO<Rectangle> dao = new RectangleDAO();
-					dao.create((Rectangle) form);
-					statementRectangle.setString(1, groupe.getNom());
-					statementRectangle.setString(2, form.getNom());
-					statementRectangle.executeUpdate();
-				} else if (form instanceof Triangle) {
-					DAO<Triangle> dao = new TriangleDAO();
-					dao.create((Triangle) form);
-					statementTriangle.setString(1, groupe.getNom());
-					statementTriangle.setString(2, form.getNom());
-					statementTriangle.executeUpdate();
-				} else if (form instanceof Groupe) {
-					DAO<Groupe> dao = new GroupeDAO();
-					dao.create((Groupe) form);
-					statementEstGroupe.setString(1, groupe.getNom());
-					statementEstGroupe.setString(2, form.getNom());
-					statementEstGroupe.executeUpdate();
+					if (form instanceof Carre) {
+
+						dao.getCarreDAO().create((Carre) form);
+						statementCarre.setString(1, groupe.getNom());
+						statementCarre.setString(2, form.getNom());
+						statementCarre.executeUpdate();
+					} else if (form instanceof Cercle) {
+						dao.getCercleDAO().create((Cercle) form);
+						statamentCercle.setString(1, groupe.getNom());
+						statamentCercle.setString(2, form.getNom());
+						statamentCercle.executeUpdate();
+					} else if (form instanceof Rectangle) {
+						dao.getRectangleDAO().create((Rectangle) form);
+						statementRectangle.setString(1, groupe.getNom());
+						statementRectangle.setString(2, form.getNom());
+						statementRectangle.executeUpdate();
+					} else if (form instanceof Triangle) {
+						dao.getTriangleDAO().create((Triangle) form);
+						statementTriangle.setString(1, groupe.getNom());
+						statementTriangle.setString(2, form.getNom());
+						statementTriangle.executeUpdate();
+					} else if (form instanceof Groupe) {
+						dao.getGroupeDAO().create((Groupe) form);
+						statementEstGroupe.setString(1, groupe.getNom());
+						statementEstGroupe.setString(2, form.getNom());
+						statementEstGroupe.executeUpdate();
+					}
 				}
 			}
 
 		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		this.closeConnexion();
@@ -73,8 +78,8 @@ public class GroupeDAO extends DAO<Groupe> {
 	@Override
 	public Groupe read(String nom) throws ClassNotFoundException, IOException {
 		Groupe groupe = null;
-		this.closeConnexion();
-		;
+		this.createConnection();
+
 		try (PreparedStatement statementGr = this.connection.prepareStatement("SELECT * FROM groupe  WHERE nom = ?");
 
 				PreparedStatement statementCarre = this.connection
@@ -103,29 +108,26 @@ public class GroupeDAO extends DAO<Groupe> {
 				if (res.next()) {
 					groupe = new Groupe(res.getString("nom"), new ArrayList<Form>());
 				}
-
+				FactoryDAO dao = new FactoryDAO();
 				while (carres.next()) {
-					DAO dao = new CarreDAO();
-					groupe.addForm((Carre) dao.read(carres.getString("nom")));
+					
+					groupe.addForm((Carre) dao.getCarreDAO().read(carres.getString("nom")));
 				}
 				while (triangles.next()) {
-					DAO dao = new TriangleDAO();
-					groupe.addForm((Triangle) dao.read(triangles.getString("nom")));
+					
+					groupe.addForm((Triangle) dao.getTriangleDAO().read(triangles.getString("nom")));
 				}
 
 				while (cercles.next()) {
-					DAO dao = new CercleDAO();
-					groupe.addForm((Cercle) dao.read(cercles.getString("nom")));
+					groupe.addForm((Cercle) dao.getCercleDAO().read(cercles.getString("nom")));
 				}
 
 				while (rectangles.next()) {
-					DAO dao = new RectangleDAO();
-					groupe.addForm((Rectangle) dao.read(rectangles.getString("nom")));
+					groupe.addForm((Rectangle) dao.getRectangleDAO().read(rectangles.getString("nom")));
 				}
 
 				while (groupes.next()) {
-					DAO dao = new GroupeDAO();
-					groupe.addForm((Groupe) dao.read(groupes.getString("nom")));
+					groupe.addForm((Groupe) dao.getGroupeDAO().read(groupes.getString("nom")));
 				}
 			}
 		} catch (SQLException e) {
@@ -138,7 +140,78 @@ public class GroupeDAO extends DAO<Groupe> {
 
 	@Override
 	public Groupe update(Groupe groupe) throws ClassNotFoundException, IOException {
-		return null;
+		List<Form> formesList = groupe.getForms();
+
+		this.createConnection();
+		try (// PreparedStatement udateStatemnt=this.connection.prepareStatement("UPDATE
+				// PERSONNEL SET fonction=? WHERE id=?");
+
+				PreparedStatement statementCarre = this.connection
+						.prepareStatement("UPDATE carre SET x=?, y=?, cote=? WHERE nom=?");
+				PreparedStatement statementTriangle = this.connection
+						.prepareStatement("UPDATE triangle SET x1=?, y2=?, x2=?, y1=?,x3=?, y3=? WHERE nom=?");
+				PreparedStatement statementRectangle = this.connection
+						.prepareStatement("UPDATE rectangle SET x=?, y=?, largeur=?, longueur=? WHERE nom=?");
+				PreparedStatement statamentCercle = this.connection
+						.prepareStatement("UPDATE cercle SET x=?, y=?, rayon=? WHERE nom=?")) {
+			// on commence par insertion du groupe
+
+			for (Form form : formesList) {
+
+				if (form instanceof Carre) {
+					DAO<Carre> dao = new CarreDAO();
+					if (dao.read(form.getNom()) != null)
+						dao.update((Carre) form);
+					else
+						dao.create((Carre) form);
+					// statementCarre.setString(1, groupe.getNom());
+					// statementCarre.setString(2, form.getNom());
+					// statementCarre.executeUpdate();
+				} else if (form instanceof Cercle) {
+					DAO<Cercle> dao = new CercleDAO();
+					if (dao.read(form.getNom()) != null)
+						dao.update((Cercle) form);
+					else
+						dao.create((Cercle) form);
+					// statamentCercle.setString(1, groupe.getNom());
+					// statamentCercle.setString(2, form.getNom());
+					// statamentCercle.executeUpdate();
+				} else if (form instanceof Rectangle) {
+					DAO<Rectangle> dao = new RectangleDAO();
+					if (dao.read(form.getNom()) != null)
+						dao.update((Rectangle) form);
+					else
+						dao.create((Rectangle) form);
+					// statementRectangle.setString(1, groupe.getNom());
+					// statementRectangle.setString(2, form.getNom());
+					// statementRectangle.executeUpdate();
+				} else if (form instanceof Triangle) {
+					DAO<Triangle> dao = new TriangleDAO();
+					if (dao.read(form.getNom()) != null)
+						dao.update((Triangle) form);
+					else
+						dao.create((Triangle) form);
+					// statementTriangle.setString(1, groupe.getNom());
+					// statementTriangle.setString(2, form.getNom());
+					// statementTriangle.executeUpdate();
+				} else if (form instanceof Groupe) {
+					DAO<Groupe> dao = new GroupeDAO();
+					if (dao.read(form.getNom()) != null)
+						dao.update((Groupe) form);
+					else
+						dao.create((Groupe) form);
+					// statementEstGroupe.setString(1, groupe.getNom());
+					// statementEstGroupe.setString(2, form.getNom());
+					// statementEstGroupe.executeUpdate();
+				}
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		this.closeConnexion();
+		;
+		return groupe;
 	}
 
 	@Override
