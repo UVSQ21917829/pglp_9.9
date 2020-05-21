@@ -13,11 +13,9 @@ public class DeleteCommand implements Command {
 	public DeleteCommand(String nom, Groupe dessin) {
 		this.dessin = dessin;
 		dao = new FactoryDAO();
-		this.forme=getForm();
+		this.forme = getForm();
 		this.nom = nom;
 	}
-
-	
 
 	public boolean exist() {
 		for (Form form : dessin.getForms()) {

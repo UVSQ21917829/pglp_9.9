@@ -15,13 +15,12 @@ public class DrawingTUI {
 		this.dao = new FactoryDAO();
 		this.dessin = new Groupe("Dessin");
 		try {
-			if(dao.getGroupeDAO().read(dessin.getNom())!=null)
-				this.dessin.setForms(dao.getGroupeDAO().read(dessin.getNom()).getForms() );
-		} catch (ClassNotFoundException | IOException |RuntimeException e) {
+			if (dao.getGroupeDAO().read(dessin.getNom()) != null)
+				this.dessin.setForms(dao.getGroupeDAO().read(dessin.getNom()).getForms());
+		} catch (ClassNotFoundException | IOException | RuntimeException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 
 	}
 
@@ -143,10 +142,9 @@ public class DrawingTUI {
 				} else {
 					System.out.print("nombre d'arguements invalide");
 				}
-			}
-			else if (commandS.matches("Sauvegarde")) {
+			} else if (commandS.matches("Sauvegarde")) {
 
-				//nom = line.substring(line.indexOf("(") + 1, line.indexOf(")"));
+				// nom = line.substring(line.indexOf("(") + 1, line.indexOf(")"));
 
 				command = new SauvegardDessinCommand(dessin);
 			}
@@ -162,7 +160,7 @@ public class DrawingTUI {
 				command = new QuitCommand();
 
 			}
-		} catch (RuntimeException   e) {
+		} catch (RuntimeException e) {
 			// TODO: handle exception
 		}
 		return command;
@@ -173,7 +171,7 @@ public class DrawingTUI {
 	}
 
 	public void afficher() {
-		
+
 		dessin.afficher();
 
 	}

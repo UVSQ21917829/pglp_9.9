@@ -1,15 +1,16 @@
 package fr.uvsq.pglp_9_9;
 
-public class Rectangle extends Form{
-    private Point2D centreGravite;
-    private int longueur;
-    private int largeur;
-	public Rectangle(String nom,Point2D centreGravite,int longueur,int largeur) {
+public class Rectangle extends Form {
+	private Point2D centreGravite;
+	private int longueur;
+	private int largeur;
+
+	public Rectangle(String nom, Point2D centreGravite, int longueur, int largeur) {
 		super(nom);
 		this.centreGravite = centreGravite;
 		this.longueur = longueur;
 		this.largeur = largeur;
-		
+
 	}
 
 	public int getLargeur() {
@@ -38,22 +39,21 @@ public class Rectangle extends Form{
 
 	@Override
 	public void afficher() {
-		System.out.println("\nRectangle(centre gravitie= ("+this.centreGravite.getX()+","+this.centreGravite.getY()+"largeur = " +this.largeur+ ",longueur : "+ this.longueur+")");
-		
+		System.out.println("\nRectangle(centre gravitie= (" + this.centreGravite.getX() + ","
+				+ this.centreGravite.getY() + "largeur = " + this.largeur + ",longueur : " + this.longueur + ")");
+
 	}
 
 	@Override
 	public void deplacer(int x, int y) {
 		this.centreGravite.deplaccer(x, y);
-		
+
 	}
 
 	@Override
 	public void decaler(int x, int y) {
 		this.centreGravite.decaler(x, y);
-		
-	}
 
-	
+	}
 
 }

@@ -15,52 +15,51 @@ public class DrawingApp {
 	public DrawingApp() {
 
 		try {
-			
 
 			String create = "CREATE TABLE groupe(nom varchar(25) PRIMARY KEY NOT NULL)";
-			createTable( "groupe", create);
+			createTable("groupe", create);
 			create = "CREATE TABLE Carre( nom varchar(25) PRIMARY KEY NOT NULL, x int, y int, cote int)";
 			createTable("carre", create);
 			create = "CREATE TABLE Cercle( nom varchar(25) PRIMARY KEY NOT NULL, x int, y int, rayon int)";
-			createTable( "cercle", create);
+			createTable("cercle", create);
 			create = "CREATE TABLE Rectangle( nom varchar(25) PRIMARY KEY NOT NULL, x int,"
 					+ " y int, largeur int, longueur int)";
-			createTable( "rectangle", create);
+			createTable("rectangle", create);
 			create = "CREATE TABLE Triangle( nom varchar(25) PRIMARY KEY NOT NULL, x1 int,"
 					+ " y1 int, x2 int, y2 int, x3 int, y3 int)";
-			createTable( "triangle", create);
+			createTable("triangle", create);
 			create = "CREATE TABLE estCarre(gr_nom varchar(25), nom varchar(25), PRIMARY KEY(gr_nom,nom), "
 					+ "FOREIGN KEY (gr_nom) REFERENCES Groupe(nom) ON DELETE CASCADE, "
 					+ "FOREIGN KEY (nom) REFERENCES Carre(nom) ON DELETE CASCADE)";
-			createTable( "estcarre", create);
+			createTable("estcarre", create);
 			create = "CREATE TABLE estCercle(gr_nom varchar(25), nom varchar(25), PRIMARY KEY(gr_nom,nom),"
 					+ " FOREIGN KEY (gr_nom) REFERENCES Groupe(nom) ON DELETE CASCADE,"
 					+ " FOREIGN KEY (nom) REFERENCES Cercle(nom) ON DELETE CASCADE)";
-			createTable( "estcercle", create);
+			createTable("estcercle", create);
 			create = "CREATE TABLE estRectangle(gr_nom varchar(25), nom varchar(25), PRIMARY KEY(gr_nom,nom),"
 					+ " FOREIGN KEY (gr_nom) REFERENCES Groupe(nom) ON DELETE CASCADE,"
 					+ " FOREIGN KEY (nom) REFERENCES Rectangle(nom) ON DELETE CASCADE)";
-			createTable( "estrectangle", create);
+			createTable("estrectangle", create);
 			create = "CREATE TABLE estTriangle(gr_nom varchar(25), nom varchar(25), PRIMARY KEY(gr_nom,nom),"
 					+ " FOREIGN KEY (gr_nom) REFERENCES Groupe(nom) ON DELETE CASCADE,"
 					+ " FOREIGN KEY (nom) REFERENCES Triangle(nom) ON DELETE CASCADE)";
-			createTable( "esttriangle", create);
+			createTable("esttriangle", create);
 			create = "CREATE TABLE estGroupe(gr_nom varchar(25), nom varchar(25), PRIMARY KEY(gr_nom,nom)"
 					+ ", FOREIGN KEY (gr_nom) REFERENCES Groupe(nom) ON DELETE CASCADE, "
 					+ "FOREIGN KEY (nom) REFERENCES Groupe(nom) ON DELETE CASCADE)";
 			createTable("estgroupe", create);
 
 			conncetion.close();
-		} catch (  SQLException e) {
+		} catch (SQLException e) {
 			System.out.println("");
-			
+
 			e.printStackTrace();
 
 		}
 		this.draw = new DrawingTUI();
 	}
 
-	public void createTable( String name, String createtTable) throws SQLException {
+	public void createTable(String name, String createtTable) throws SQLException {
 		try {
 			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
 		} catch (ClassNotFoundException e) {
@@ -75,7 +74,7 @@ public class DrawingApp {
 			statement.execute(createtTable);
 			statement.close();
 		}
-		
+
 		conncetion.close();
 	}
 
@@ -101,12 +100,11 @@ public class DrawingApp {
 		System.out.println("\n ****************************************************************");
 		while (true) {
 			command = this.draw.nextCommand();
-            try {
-            	command.execute();
+			try {
+				command.execute();
 			} catch (NullPointerException e) {
 				System.out.println("Erreur lors de l'execustion de la commande. Veuillez verifier le syntaxe");
 			}
-			
 
 			this.draw.afficher();
 		}

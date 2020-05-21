@@ -72,7 +72,8 @@ public class CercleDAO extends DAO<Cercle> {
 	@Override
 	public void delete(String nom) throws IOException {
 		this.createConnection();
-		try (PreparedStatement statementCercle = this.connection.prepareStatement("DELETE FROM cercle  WHERE nom = ?");) {
+		try (PreparedStatement statementCercle = this.connection
+				.prepareStatement("DELETE FROM cercle  WHERE nom = ?");) {
 			statementCercle.setString(1, nom);
 			statementCercle.executeUpdate();
 		} catch (SQLException e) {

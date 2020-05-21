@@ -1,7 +1,5 @@
 package fr.uvsq.pglp_9_9;
 
-
-
 public class CreateCommand implements Command {
 
 	private Form forme;
@@ -33,42 +31,27 @@ public class CreateCommand implements Command {
 	public void execute() {
 		if (!this.exist(this.forme)) {
 			dessin.addForm(forme);
-			/*if (forme instanceof Carre) {
-				try {
-					dao.getCarreDAO().create((Carre) forme);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-
-			} else if (forme instanceof Cercle) {
-				try {
-					dao.getCercleDAO().create((Cercle) forme);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-
-			} else if (forme instanceof Rectangle) {
-				try {
-					dao.getRectangleDAO().create((Rectangle) forme);
-				} catch (IOException e) {
-					
-					e.printStackTrace();
-				}
-
-			} else if (forme instanceof Triangle) {
-				try {
-					dao.getTriangleDAO().create((Triangle) forme);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-
-			} else if (forme instanceof Groupe) {
-				try {
-					dao.getGroupeDAO().create((Groupe) forme);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}*/
+			/*
+			 * if (forme instanceof Carre) { try { dao.getCarreDAO().create((Carre) forme);
+			 * } catch (IOException e) { e.printStackTrace(); }
+			 * 
+			 * } else if (forme instanceof Cercle) { try {
+			 * dao.getCercleDAO().create((Cercle) forme); } catch (IOException e) {
+			 * e.printStackTrace(); }
+			 * 
+			 * } else if (forme instanceof Rectangle) { try {
+			 * dao.getRectangleDAO().create((Rectangle) forme); } catch (IOException e) {
+			 * 
+			 * e.printStackTrace(); }
+			 * 
+			 * } else if (forme instanceof Triangle) { try {
+			 * dao.getTriangleDAO().create((Triangle) forme); } catch (IOException e) {
+			 * e.printStackTrace(); }
+			 * 
+			 * } else if (forme instanceof Groupe) { try {
+			 * dao.getGroupeDAO().create((Groupe) forme); } catch (IOException e) {
+			 * e.printStackTrace(); } }
+			 */
 		}
 
 	}

@@ -20,7 +20,7 @@ public class TriangleDAO extends DAO<Triangle> {
 			statemnt.setInt(5, traingle.getPoint2().getY());
 			statemnt.setInt(6, traingle.getPoint3().getX());
 			statemnt.setInt(7, traingle.getPoint3().getY());
-			
+
 			statemnt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -35,8 +35,7 @@ public class TriangleDAO extends DAO<Triangle> {
 	public Triangle read(String nom) throws ClassNotFoundException, IOException {
 		Triangle traingle = null;
 		this.createConnection();
-		try (PreparedStatement statmment = this.connection
-				.prepareStatement("SELECT * FROM triangle  WHERE nom = ?")) {
+		try (PreparedStatement statmment = this.connection.prepareStatement("SELECT * FROM triangle  WHERE nom = ?")) {
 			statmment.setString(1, nom);
 			try (ResultSet res = statmment.executeQuery()) {
 				if (res.next()) {
@@ -88,7 +87,7 @@ public class TriangleDAO extends DAO<Triangle> {
 			e.printStackTrace();
 		}
 		this.closeConnexion();
-		
+
 	}
 
 }

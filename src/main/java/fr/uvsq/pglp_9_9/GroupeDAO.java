@@ -110,11 +110,11 @@ public class GroupeDAO extends DAO<Groupe> {
 				}
 				FactoryDAO dao = new FactoryDAO();
 				while (carres.next()) {
-					
+
 					groupe.addForm((Carre) dao.getCarreDAO().read(carres.getString("nom")));
 				}
 				while (triangles.next()) {
-					
+
 					groupe.addForm((Triangle) dao.getTriangleDAO().read(triangles.getString("nom")));
 				}
 

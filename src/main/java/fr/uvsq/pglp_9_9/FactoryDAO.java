@@ -11,14 +11,17 @@ public class FactoryDAO {
 		return new CarreDAO();
 
 	}
+
 	public DAO<Rectangle> getRectangleDAO() {
 		return new RectangleDAO();
 
 	}
+
 	public DAO<Triangle> getTriangleDAO() {
 		return new TriangleDAO();
 
 	}
+
 	public DAO<Groupe> getGroupeDAO() {
 		return new GroupeDAO();
 
