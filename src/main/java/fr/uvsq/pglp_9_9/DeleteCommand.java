@@ -1,6 +1,7 @@
 package fr.uvsq.pglp_9_9;
 
 import java.io.IOException;
+import java.util.Iterator;
 
 public class DeleteCommand implements Command {
 
@@ -9,23 +10,19 @@ public class DeleteCommand implements Command {
 	private Groupe dessin;
 	private FactoryDAO dao;
 
-	public DeleteCommand(String npm, Groupe dessin) {
-		this.setForme(forme);
+	public DeleteCommand(String nom, Groupe dessin) {
 		this.dessin = dessin;
 		dao = new FactoryDAO();
+		this.forme=getForm();
+		this.nom = nom;
 	}
 
-	public Form getForme() {
-		return forme;
-	}
+	
 
-	public void setForme(Form forme) {
-		this.forme = forme;
-	}
-
-	public boolean exist(Form forme2) {
+	public boolean exist() {
 		for (Form form : dessin.getForms()) {
-			if (form.getNom().equals(forme2.getNom())) {
+			if (form.getNom().equals(nom)) {
+				// System.out.println("show:"+form.getNom()+" " +nom);
 				return true;
 			}
 		}
@@ -33,22 +30,36 @@ public class DeleteCommand implements Command {
 		return false;
 	}
 
+	public Form getForm() {
+		for (Form form : dessin.getForms()) {
+			System.out.println("show:" + form.getNom() + " " + nom);
+			if (form.getNom().equals(nom)) {
+				return form;
+			}
+		}
+
+		return null;
+	}
+
 	@Override
 	public void execute() {
 
-		if (!this.exist(this.forme)) {
+		if (this.exist() || !nom.equals(dessin.getNom())) {
 
-			for (int i = 0; i < dessin.getForms().size(); i++) {
-				if (dessin.getForms().get(i).getNom().equals(nom)) {
-					dessin.getForms().remove(i);
+			for (Iterator<Form> iter = dessin.getForms().listIterator(); iter.hasNext();) {
+				Form a = iter.next();
+				// System.out.println("show:"+a.getNom());
+				if (a.getNom().equals(nom)) {
+					iter.remove();
 				}
+
 			}
+
 			if (forme instanceof Carre) {
 				try {
 
 					dao.getCarreDAO().delete(nom);
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 
@@ -56,7 +67,6 @@ public class DeleteCommand implements Command {
 				try {
 					dao.getCercleDAO().delete(nom);
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 
@@ -64,15 +74,13 @@ public class DeleteCommand implements Command {
 				try {
 					dao.getRectangleDAO().delete(nom);
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 
 			} else if (forme instanceof Triangle) {
 				try {
 					dao.getTriangleDAO().delete(nom);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
+				} catch (IOException e) { // TODO
 					e.printStackTrace();
 				}
 
@@ -80,10 +88,10 @@ public class DeleteCommand implements Command {
 				try {
 					dao.getGroupeDAO().delete(nom);
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
+
 		}
 	}
 
